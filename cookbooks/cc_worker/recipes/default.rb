@@ -26,7 +26,7 @@ end
 
 execute "crawlerInstall" do
     command "cd /home/ubuntu/cloud_crawler/cloud-crawler;
-    bundle install;gem build cloud_crawler.gemspec; gem install cloud_crawler*.gem"
+    bundle install;gem build cloud-crawler.gemspec; gem install cloud-crawler*.gem"
     action :run
 end
 

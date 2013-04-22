@@ -1,0 +1,6 @@
+.rake_test_cache
+.chef
+*.swo
+*.swp
+*.pem
+*.project

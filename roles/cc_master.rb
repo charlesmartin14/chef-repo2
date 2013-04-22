@@ -1,4 +1,4 @@
-name "fat_node"
+name "cc_master"
 description "Worker Node that polls qless queues for work to do"
 run_list "recipe[apt]","recipe[build-essential]","recipe[git]","recipe[cc_master]","recipe[chef-client]"
 

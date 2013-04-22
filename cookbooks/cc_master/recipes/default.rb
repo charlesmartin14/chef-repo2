@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: fat_node
+# Cookbook Name:: cc_master
 # Recipe:: default
 #
 # Copyright 2013, Calculated Content

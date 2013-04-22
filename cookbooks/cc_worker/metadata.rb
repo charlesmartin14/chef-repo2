@@ -1,4 +1,4 @@
-name             'worker'
+name             'cc_worker'
 maintainer       'Calculated Content'
 maintainer_email 'charlesmartin14@gmail.com'
 license          'All rights reserved'

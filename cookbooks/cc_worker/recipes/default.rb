@@ -5,27 +5,26 @@
 # Copyright 2013, YOUR_COMPANY_NAME
 #
 # All rights reserved - Do Not Redistribute
+include_recipe 'git'
+include_recipe 'ruby_193'
 include_recipe 's3cmd'
 include_recipe 'redisio'
 include_recipe 'redisio::install'
 include_recipe 'redisio::enable'
-package "ruby1.9.1"
-package "ruby1.9.1-dev"
-package "libxslt-dev"#nokogiri dependency
-package "libxml2-dev"#nokogiri dependency
+
 
 gem_package "bundler"
 
 # This may eventually be replaced with the chef deploy recipe
 
-git "/home/ubuntu/spps" do
+git "/home/ubuntu/apps" do
     repository "https://github.com/CalculatedContent/cloud-crawler.git"
     reference "master"
     action :sync
 end
 
 execute "crawlerInstall" do
-    command "cd /home/ubuntu/cloud_crawler/cloud-crawler;
+    command "cd /home/ubuntu/apps/cloud-crawler;
     bundle install;gem build cloud-crawler.gemspec; gem install cloud-crawler*.gem"
     action :run
 end
@@ -48,8 +47,8 @@ end
 puts "starting worker using #{final_address} as the queue server"
 
 execute "runCrawler" do
-    command "cd /home/ubuntu/cloud_crawler/cloud-crawler;
-    bundle exec /home/ubuntu/cloud_crawler/cloud-crawler/bin/start_batch_crawl.rb -h #{final_address}" 
+    command "cd /home/ubuntu/apps/cloud-crawler;
+    bundle exec /home/ubuntu/apps/cloud-crawler/bin/start_batch_crawl.rb -h #{final_address}" 
     action :run
 end
 

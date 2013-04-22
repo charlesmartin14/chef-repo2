@@ -13,21 +13,16 @@ include_recipe 'redisio'
 include_recipe 'redisio::install'
 include_recipe 'redisio::enable'
 
-# package "ruby1.9.1"
-# package "ruby1.9.1-dev"
-# package "libxslt-dev"#nokogiri dependency
-# package "libxml2-dev"#nokogiri dependency
-
 gem_package "bundler"
 
-git "/home/ubuntu/cloud_crawler" do 
+git "/home/ubuntu/apps" do 
     repository "https://github.com/CalculatedContent/cloud-crawler.git"
     reference "master"
     action :sync
 end
 
 execute "crawlerInstall" do
-    command "cd /home/ubuntu/cloud-crawler/cloud-crawler;
+    command "cd /home/ubuntu/apps/cloud-crawler;
     bundle install;gem build cloud-crawler.gemspec; gem install cloud-crawler*.gem"
     action :run
 end

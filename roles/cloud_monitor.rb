@@ -1,5 +1,5 @@
-name "click_tracker"
-description "Sinatra web app for tracking clicks"
+name "cloud_monitor"
+description "Sinatra web app for tracking qless"
 run_list "recipe[apt]","recipe[build-essential]","recipe[git]","recipe[chef-client]","recipe[sinatra_app]"
   
   

@@ -6,7 +6,7 @@
 #
 # All rights reserved - Do Not Redistribute
 
-include_recipe "cloud_crawler::master"
+include_recipe "cloud_crawler::crawler"
 include_recipe "cloud_crawler::monitor"
 
 

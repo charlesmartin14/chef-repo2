@@ -16,7 +16,7 @@ include_recipe 'redisio::enable'
 gem_package "bundler"
 
 git "/home/ubuntu/apps" do
-    repository "https://github.com/charlesmartin14/cloud-crawler.git"
+    repository "https://github.com/CalculatedContent/cloud-crawler.git"
     reference "master"
     action :sync
 end

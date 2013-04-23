@@ -92,7 +92,7 @@ echo "knife[:identity_file] =\"$CHEF_PEM\"" >> .chef/knife.rb
 echo ''
 echo ''
 echo "Now double check that the following lines in your .chef/knife.rb are correct
-knife[:aws_ssh_key_id] = $KEY_NAME
+knife[:aws_ssh_key_id] = \"$KEY_NAME\"
 knife[:aws_access_key_id]     = \"$AWS_ACCESS_KEY\"
 knife[:aws_secret_access_key] = \"$AWS_SECRET_KEY\"
 knife[:identity_file] =\"$CHEF_PEM\"

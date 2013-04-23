@@ -10,7 +10,7 @@ KEY_FILE=$CHEF_PEM #the path to your AWS key
 
 SECURITY_GROUPS="chef_server_group" #group you created with port 22 and 443 open
 INSTANCE_TYPE="m1.small" #Note that at least a small is recommended currently
-AMI_ID="ami-137bcf7a" #AMI you wish to use- must be available in your region
+AMI_ID=$CHEF_AMI_ID #AMI you wish to use- must be available in your region
 NODE_NAME="the_chef_server" #A descriptive name that will appear in knife ec2 server list output
 
 echo "NOTE: Pay attention as this script runs- you will be prompted to enter a password at one point"

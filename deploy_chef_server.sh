@@ -8,10 +8,10 @@ USER=$CHEF_USER
 KEY_NAME=$CHEF_KEY #the name shown under "Key Pairs" in AWS console
 KEY_FILE=$CHEF_PEM #the path to your AWS key
 
-SECURITY_GROUPS="chefami" #group you created with port 22 and 443 open
+SECURITY_GROUPS="chef_server_group" #group you created with port 22 and 443 open
 INSTANCE_TYPE="m1.small" #Note that at least a small is recommended currently
-AMI_ID="ami-d70c2892"
-NODE_NAME="chefami"
+AMI_ID="ami-d70c2892" #AMI you wish to use- must be available in your region
+NODE_NAME="the_chef_server" #A descriptive name that will appear in knife ec2 server list output
 
 #see here for how to create a security group in ruby:
 #https://github.com/fnichol/knife-server/blob/master/lib/knife/server/ec2_security_group.rb

@@ -10,7 +10,7 @@ KEY_FILE=$CHEF_PEM #the path to your AWS key
 
 SECURITY_GROUPS="chef_server_group" #group you created with port 22 and 443 open
 INSTANCE_TYPE="m1.small" #Note that at least a small is recommended currently
-AMI_ID="ami-d70c2892" #AMI you wish to use- must be available in your region
+AMI_ID="ami-137bcf7a" #AMI you wish to use- must be available in your region
 NODE_NAME="the_chef_server" #A descriptive name that will appear in knife ec2 server list output
 
 #see here for how to create a security group in ruby:
@@ -83,6 +83,20 @@ for z in roles/*rb do
   knife role from file roles/$z
 done
 
+echo "knife[:aws_ssh_key_id] = $KEY_NAME">> .chef/knife.rb
+echo "knife[:aws_access_key_id]     = \"$AWS_ACCESS_KEY\"">> .chef/knife.rb
+echo "knife[:aws_secret_access_key] = \"$AWS_SECRET_KEY\"">> .chef/knife.rb
+echo "knife[:identity_file] =\"$CHEF_PEM\"" >> .chef/knife.rb
 
+echo ''
+echo ''
+echo "Now double check that the following lines in your .chef/knife.rb are correct
+knife[:aws_ssh_key_id] = $KEY_NAME
+knife[:aws_access_key_id]     = \"$AWS_ACCESS_KEY\"
+knife[:aws_secret_access_key] = \"$AWS_SECRET_KEY\"
+knife[:identity_file] =\"$CHEF_PEM\"
+"
+echo "After fixing the lines above you should be able to bootstrap new nodes with knife ec2 server create"
 echo "Login to the chef server webUI at https://$ip_address using username admin and password p@ssw0rd1 and immediately change the password"
 echo "You can also login using $USER as your username and the password you entered earlier"
+

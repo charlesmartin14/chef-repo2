@@ -13,6 +13,8 @@ INSTANCE_TYPE="m1.small" #Note that at least a small is recommended currently
 AMI_ID="ami-137bcf7a" #AMI you wish to use- must be available in your region
 NODE_NAME="the_chef_server" #A descriptive name that will appear in knife ec2 server list output
 
+echo "NOTE: Pay attention as this script runs- you will be prompted to enter a password at one point"
+
 #see here for how to create a security group in ruby:
 #https://github.com/fnichol/knife-server/blob/master/lib/knife/server/ec2_security_group.rb
 #knife server plugin would allow us to do everything with just this command, but it doesn't work, I've filed an issue on github already
@@ -47,13 +49,14 @@ fi
 
 #set the FQDN to the amazon public DNS name- if you don't do this knife cookbook will try to reference the internal DNS name
 #NOTE: the FQDN must be set properly before you do chef-server-ctl reconfigure
-ssh -i $KEY_FILE ubuntu@$ip_address "echo $host_name > /etc/hostname"
+#disable StrictHostKeyChecking on the first connection attempt to avoid (yes/no) prompt
+ssh -oStrictHostKeyChecking=no -i $KEY_FILE ubuntu@$ip_address "echo $host_name > /etc/hostname" 
+
 ssh -i $KEY_FILE ubuntu@$ip_address "sudo hostname -F /etc/hostname"
 ssh -i $KEY_FILE ubuntu@$ip_address "sudo echo $ip_address $host_name >> /etc/hosts"
 
 #Download chef server on your new instance and install/test it
-#disable StrictHostKeyChecking on the first connection attempt to avoid (yes/no) prompt
-ssh -i $KEY_FILE ubuntu@$ip_address 'wget https://opscode-omnitruck-release.s3.amazonaws.com/ubuntu/12.04/x86_64/chef-server_11.0.6-1.ubuntu.12.04_amd64.deb' -o "StrictHostKeyChecking no"
+ssh -i $KEY_FILE ubuntu@$ip_address 'wget https://opscode-omnitruck-release.s3.amazonaws.com/ubuntu/12.04/x86_64/chef-server_11.0.6-1.ubuntu.12.04_amd64.deb' 
 ssh -i $KEY_FILE ubuntu@$ip_address 'sudo dpkg -i chef-server_11.0.6-1.ubuntu.12.04_amd64.deb'
 ssh -i $KEY_FILE ubuntu@$ip_address 'sudo chef-server-ctl reconfigure'
 ssh -i $KEY_FILE ubuntu@$ip_address 'sudo chef-server-ctl test'

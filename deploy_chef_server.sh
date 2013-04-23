@@ -82,9 +82,7 @@ knife configure  -i -u $USER -y -s "https://$ip_address" -k ".chef/$USER.pem"  -
 
 #upload all existing cookbooks and roles
 knife cookbook upload -a
-for z in roles/*rb do
-  knife role from file roles/$z
-done
+for z in roles/*rb; do knife role from file $z;done
 
 echo "knife[:aws_ssh_key_id] = $KEY_NAME">> .chef/knife.rb
 echo "knife[:aws_access_key_id]     = \"$AWS_ACCESS_KEY\"">> .chef/knife.rb

@@ -4,9 +4,9 @@
 #what chef server >=11.x now uses, in the script below that security group is called chef_server_group
 #the security group can be created from the AWS web console or using the amazon supplied ec2-api-tools
 
-USER="charlesmartin14"
-KEY_NAME="cms_aws_3" #the name shown under "Key Pairs" in AWS console
-KEY_FILE="/Users/charlesmartin14/.ssh/cms_aws_3.pem" #the path to your AWS key
+USER=$CHEF_USER
+KEY_NAME=$CHEF_KEY #the name shown under "Key Pairs" in AWS console
+KEY_FILE=$CHEF_PEM #the path to your AWS key
 
 SECURITY_GROUPS="chefami" #group you created with port 22 and 443 open
 INSTANCE_TYPE="m1.small" #Note that at least a small is recommended currently
@@ -79,12 +79,10 @@ knife configure  -i -u $USER -y -s "https://$ip_address" -k ".chef/$USER.pem"  -
 
 #upload all existing cookbooks and roles
 knife cookbook upload -a
-cmd1="knife role from file roles/crawler.rb"
-cmd2="knife role from file roles/qless_server.rb"
-$cmd1
-$cmd2
+for z in roles/*rb do
+  knife role from file roles/$z
+done
 
-cat ~/.chef/knife.rb >> .chef/knife.rb
 
 echo "Login to the chef server webUI at https://$ip_address using username admin and password p@ssw0rd1 and immediately change the password"
 echo "You can also login using $USER as your username and the password you entered earlier"

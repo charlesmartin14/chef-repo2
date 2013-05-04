@@ -1,13 +1,13 @@
 <VirtualHost *:80>
     # ServerName <%= @params[:server_name] %>
-    DocumentRoot <%= "#{@params[:docroot]}/public" %>
+    DocumentRoot <%= "#{@params[:docroot]}/#{@params[:server_name]}/current/public" %>
    
     # Log details
     LogLevel warn
     ErrorLog <%= @node[:apache][:log_dir] %>/error-<%= @params[:server_name] %>.log
     CustomLog <%= @node[:apache][:log_dir] %>/access-<%= @params[:server_name] %>.log combined
     
-    <Directory <%= "#{@params[:docroot]}/public" %>>
+    <Directory <%= "#{@params[:docroot]}/#{@params[:server_name]}/current/public" %>>
         Options FollowSymLinks -MultiViews
         AllowOverride All
         Order allow,deny
@@ -15,8 +15,8 @@
     </Directory>
     
      
-    RackBaseURI /
-    RackEnv <%= @params[:rack_env] %>
+ #   RackBaseURI /
+ #   RackEnv <%= @params[:rack_env] %>
   
         
 </VirtualHost>

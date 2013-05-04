@@ -1,10 +1,10 @@
-# CHANGELOG for worker
+# CHANGELOG for sinatra_app
 
-This file is used to list changes made in each version of worker.
+This file is used to list changes made in each version of sinatra_app.
 
 ## 0.1.0:
 
-* Initial release of worker
+* Initial release of sinatra_app
 
 - - -
 Check the [Markdown Syntax Guide](http://daringfireball.net/projects/markdown/syntax) for help with Markdown.

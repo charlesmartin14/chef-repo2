@@ -18,12 +18,11 @@ include_recipe 'redisio::install'
 include_recipe 'redisio::enable'
 
 
-app_name = node[:sinatra_app][:app_name]
-server_name = node[:sinatra_app][:server_name]
+name = node[:sinatra_app][:name]
 # Create vhost
 
-web_app app_name do
-  server_name app_name
+web_app name do
+  server_name name
   docroot node[:sinatra_app][:docroot]
   template "sinatra_app.conf.erb"
   log_dir node[:apache][:log_dir]
@@ -31,10 +30,11 @@ web_app app_name do
 end
 
 # Set file and directory perimissions
-directory "#{node[:sinatra_app][:deploy_dir]}" do
+# might destroy apps -- be careful
+directory node[:sinatra_app][:deploy_dir] do
   owner node[:apache][:user]
   group node[:apache][:user]
-  action :create
+  action :create 
 end
 
 

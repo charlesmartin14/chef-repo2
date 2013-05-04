@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: cloud_crawler
+# Cookbook Name:: cloud-crawler
 # Recipe:: crawler
 #
 # Copyright 2013, Calculated Content

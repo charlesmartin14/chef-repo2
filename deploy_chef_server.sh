@@ -8,12 +8,14 @@ USER=$CHEF_USER
 KEY_NAME=$CHEF_KEY #the name shown under "Key Pairs" in AWS console
 KEY_FILE=$CHEF_PEM #the path to your AWS key
 
-SECURITY_GROUPS="chef_server_group" #group you created with port 22 and 443 open
+SECURITY_GROUPS="chefami" #group you created with port 22 and 443 open
 INSTANCE_TYPE="m1.small" #Note that at least a small is recommended currently
 AMI_ID=$CHEF_AMI_ID #AMI you wish to use- must be available in your region
-NODE_NAME="the_chef_server" #A descriptive name that will appear in knife ec2 server list output
+NODE_NAME="chefami" #A descriptive name that will appear in knife ec2 server list output
 
 echo "NOTE: Pay attention as this script runs- you will be prompted to enter a password at one point"
+
+echo $AMI_ID
 
 #see here for how to create a security group in ruby:
 #https://github.com/fnichol/knife-server/blob/master/lib/knife/server/ec2_security_group.rb
@@ -85,18 +87,14 @@ knife cookbook upload -a
 for z in roles/*rb; do knife role from file $z;done
 
 echo "knife[:aws_ssh_key_id] = \"$KEY_NAME\"">> .chef/knife.rb
-echo "knife[:aws_access_key_id]     = \"$AWS_ACCESS_KEY\"">> .chef/knife.rb
-echo "knife[:aws_secret_access_key] = \"$AWS_SECRET_KEY\"">> .chef/knife.rb
 echo "knife[:identity_file] =\"$CHEF_PEM\"" >> .chef/knife.rb
+echo "knife[:aws_access_key_id]=\" #{ENV['AWS_ACCESS_KEY_ID']}\" "
+echo "knife[:aws_secret_access_key]=\"#{ENV['AWS_SECRET_ACCESS_KEY']}\" "
+echo "knife[:availability_zone]=\"#{ENV['EC2_AVAILABILITY_ZONE']}\" "
+echo "knife[:region]=\"#{ENV['EC2_REGION']}\" "
 
-echo ''
-echo ''
-echo "Now double check that the following lines in your .chef/knife.rb are correct
-knife[:aws_ssh_key_id] = \"$KEY_NAME\"
-knife[:aws_access_key_id]     = \"$AWS_ACCESS_KEY\"
-knife[:aws_secret_access_key] = \"$AWS_SECRET_KEY\"
-knife[:identity_file] =\"$CHEF_PEM\"
-"
+
+
 echo "After fixing the lines above you should be able to bootstrap new nodes with knife ec2 server create"
 echo "Login to the chef server webUI at https://$ip_address using username admin and password p@ssw0rd1 and immediately change the password"
 echo "You can also login using $USER as your username and the password you entered earlier"

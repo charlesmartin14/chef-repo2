@@ -1,5 +1,6 @@
 [default]
-access_key =  ""
+access_key =  <%= "#{ENV['AWS_ACCESS_KEY_ID']}" %>
+secret_key =  <%= "#{ENV['AWS_SECRET_ACCESS_KEY']}" %>
 acl_public = False
 bucket_location = US
 cloudfront_host = cloudfront.amazonaws.com
@@ -26,7 +27,6 @@ proxy_host =
 proxy_port = 0
 recursive = False
 recv_chunk = 4096
-secret_key = ""
 send_chunk = 4096
 simpledb_host = sdb.amazonaws.com
 skip_existing = False

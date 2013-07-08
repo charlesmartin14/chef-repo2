@@ -20,4 +20,5 @@ node[:s3cmd][:users].each do |user|
       source "s3cfg.erb"
       mode 0655
   end  
+  
 end

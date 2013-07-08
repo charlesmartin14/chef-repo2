@@ -21,7 +21,7 @@ git "/home/ubuntu/apps" do
     action :sync
 end
 
-execute "crawlerInstall" do
+execute "crawler_install" do
     command "cd /home/ubuntu/apps/cloud-crawler;
     bundle install;gem build cloud-crawler.gemspec; gem install cloud-crawler*.gem"
     action :run

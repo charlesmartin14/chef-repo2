@@ -35,6 +35,7 @@ directory node[:sinatra_app][:deploy_dir] do
   owner node[:apache][:user]
   group node[:apache][:user]
   action :create 
+  recursive true
 end
 
 
@@ -42,4 +43,7 @@ gem_package "sinatra" do
   action :install
 end
 
+gem_package "whenever" do
+  action :install
+end
 
